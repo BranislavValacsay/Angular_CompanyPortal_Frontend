@@ -1,0 +1,140 @@
+
+<div class="bg1 invert fva" >
+
+    <div class="op4 invert">
+        <div class="container" style="background:#e6e6e6;">
+
+            <div class="jobdetail container-fluid" style="position:relative; padding-top: 50px; padding-bottom: 70px;white-space: pre-line;">
+                <div>
+
+                    <form #myform="ngForm" autocomplete="off">
+                       
+                        <h3>Job title</h3>
+                        <input type="text" class="form-control mr-sm-2" placeholder="" name="jobTitle" ngModel>
+                        <hr>
+                        <h3>Language</h3>
+                        <input type="text" class="form-control mr-sm-2" placeholder="" name="Language" ngModel="English">
+                        <hr>
+                        
+                        <h3>Job State</h3>
+                        <mat-chip-list #chipListSTATE="matChipList" selectable aria-label="Jop state selection" name="State" ngModel="{{jobStateHelperVar}}" >
+                            <mat-chip #c="matChip" *ngFor="let state of jobState" (click)="JobStateSelected(c,chipListSTATE)" name="jobState">{{state.stateChips}}</mat-chip>
+
+                            <mat-chip (click)="openModal(templateState)">+</mat-chip>
+
+                            <ng-template #templateState>
+                                <div class="modal-header">
+                                    <h2 class="fva">Enter new state:</h2>
+                                    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+                                    <span aria-hidden="true" class="visually-hidden">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">                        
+                                    <input type="text" class="form-control mr-sm-2" placeholder="add job state"
+                                    [matChipInputFor]="chipListSTATE"
+                                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                    (matChipInputTokenEnd)="addJobState($event)">
+                                </div>
+                            </ng-template>
+
+                        </mat-chip-list>
+                        <hr>
+                        <h3>City</h3>
+
+                        <mat-chip-list #chipListCITY="matChipList" selectable aria-label="Jop city selection" name="City" ngModel="{{jobCityHelperVar}}" >
+                            <mat-chip #c="matChip" *ngFor="let city of jobCity" (click)="JobCitySelected(c,chipListCITY)" name="jobType">{{city.cityChips}}</mat-chip>
+
+                            <mat-chip (click)="openModal(templateCity)">+</mat-chip>
+
+                            <ng-template #templateCity>
+                                <div class="modal-header">
+                                    <h2 class="fva">Enter new job city:</h2>
+                                    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+                                    <span aria-hidden="true" class="visually-hidden">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">                        
+                                    <input type="text" class="form-control mr-sm-2" placeholder="add job type"
+                                    [matChipInputFor]="chipListCITY"
+                                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                    (matChipInputTokenEnd)="addJobCity($event)">
+                                </div>
+                            </ng-template>
+
+                        </mat-chip-list>
+                        <hr>
+                        <h3>Job type</h3>
+
+                        <mat-chip-list #chipListJOBTYPE="matChipList" selectable aria-label="Jop type selection" name="jobType" ngModel="{{jobTypeHelperVar}}" >
+                            <mat-chip #c="matChip" *ngFor="let type of jobType" (click)="JobTypeSelected(c,chipListJOBTYPE)" name="jobType">{{type.typeChips}}</mat-chip>
+
+                            <mat-chip (click)="openModal(templateType)">+</mat-chip>
+
+                            <ng-template #templateType>
+                                <div class="modal-header">
+                                    <h2 class="fva">Enter new job type:</h2>
+                                    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+                                    <span aria-hidden="true" class="visually-hidden">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">                        
+                                    <input type="text" class="form-control mr-sm-2" placeholder="add job type"
+                                    [matChipInputFor]="chipListJOBTYPE"
+                                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                    (matChipInputTokenEnd)="addJobType($event)">
+                                </div>
+                            </ng-template>
+
+                        </mat-chip-list>
+
+                        <h3>Tech stack:</h3>
+                        <p>{{myform.value |json}}</p>
+
+                        <hr>
+                        <h3>Job Description</h3>
+                        <textarea class="form-control" id="jobDescription" name="jobDescription" rows="20" name="jobDescription" ngModel=""></textarea>
+
+                        <h3>Your tasks</h3>
+                        <textarea class="form-control" id="tasks" name="tasks" rows="12"name="tasks" ngModel></textarea>
+                        
+                        <h3>Your profile</h3>
+                        <textarea class="form-control" id="yourProfile" name="yourProfile"rows="15"name="yourProfile" ngModel></textarea>
+                        <h3>You can expect</h3>
+                        <textarea class="form-control" id="youCanExpect" name="youCanExpect" rows="8" name="youCanExpect" ngModel={{youCanExpect}}></textarea>
+                        <h3>Further information</h3>
+                        <textarea class="form-control" id="furtherInformation" name="furtherInformation" rows="15" name="furtherInformation" ngModel={{furterInfo}}></textarea>
+                        <hr>
+                        <h3>Start date</h3>
+                        <input type="text" class="form-control mr-sm-2" placeholder="" name="startDate" ngModel="ASAP">
+                        <hr>
+                        <h3>Gross salary</h3>
+                        <input type="text" class="form-control mr-sm-2" placeholder="" name="salary" ngModel=0>
+                        <hr>
+                        <h3>Source company</h3>
+                        <input type="text" class="form-control mr-sm-2" placeholder="" name="Source" ngModel="iTEC">
+                        <hr>
+                        <h3>Source company Id</h3>
+                        <input type="text" class="form-control mr-sm-2" placeholder="" name="sourceId" ngModel=0>
+                        <hr>
+                        <h3>Source URL</h3>
+                        <input type="text" class="form-control mr-sm-2" placeholder="Paste source URL from other company" name="sourceUrl" ngModel>
+                        <hr>
+                        <h3>Job URL on NETRUNNERS</h3>
+                        <input type="text" class="form-control mr-sm-2" placeholder="press the button to generate URL" name="jobUrl" ngModel={{cloudUrl}}>
+                        <button (click)="assembleUrl(myform)" class="btn my-2 btn-info" >generate URL</button>
+
+                        <select name="jobClosed" class="form-control mr-sm-2" name="jobClosed" [(ngModel)]="jobClosedHelperVar"> 
+                            <option [ngValue]="false">Position opened</option>
+                            <option [ngValue]="true">Position not opened</option>
+                        </select>
+
+            
+                    </form>
+
+                    <button class="btn my-2  btn-primary" (click)="createJob(myform)">Create Job</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

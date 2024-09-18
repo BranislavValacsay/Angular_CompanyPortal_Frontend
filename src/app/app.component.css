@@ -1,0 +1,18 @@
+div .remnant {width: 6000px;
+height: 2500px;
+top:200px;
+
+position: fixed;
+z-index: 10000;
+
+animation: getlost;
+animation-duration: 4s;
+}
+@keyframes getlost {
+from{
+    background:black;
+    }
+to  {
+
+    }
+}

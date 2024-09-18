@@ -1,0 +1,152 @@
+  <table mat-table [dataSource]="job" class="container mx-auto mat-elevation-z8">
+
+      <!-- Language Column -->
+      <ng-container matColumnDef="Project">
+      <th mat-header-cell *matHeaderCellDef>Project</th>
+      <td mat-cell *matCellDef="let project">{{project.jobTitle}}</td>
+      </ng-container>
+
+      <!-- Tag Column -->
+      <ng-container matColumnDef="Tag">
+      <th mat-header-cell *matHeaderCellDef>Tag</th>
+      <td class="" mat-cell *matCellDef="let project">{{project.jobType}}</td>
+      </ng-container>
+
+      <!-- Language Column -->
+      <ng-container matColumnDef="Language">
+      <th mat-header-cell *matHeaderCellDef>Language</th>
+      <td mat-cell *matCellDef="let project">{{project.language}}</td>
+      </ng-container>
+
+      <!-- City Column -->
+      <ng-container matColumnDef="State">
+      <th mat-header-cell *matHeaderCellDef>State</th>
+      <td class="" mat-cell *matCellDef="let project">{{project.state}}</td>
+      </ng-container>
+
+      <!-- Gross Salary Column
+      <ng-container matColumnDef="EmployeeGrossSalary">
+      <th mat-header-cell *matHeaderCellDef>Gross salary</th>
+      <td mat-cell *matCellDef="let project"><a routerLink='/jobdetail/{{project.jobUrl}}'class="text-reset">{{project.salary}} Euro</a></td>
+      </ng-container> -->
+
+      <!-- Pure Salary Column
+      <ng-container matColumnDef="EmployeePureSalary">
+      <th mat-header-cell *matHeaderCellDef>Example pure salary</th>
+      <td mat-cell *matCellDef="let project"><a routerLink='/jobdetail/{{project.jobUrl}}'class="text-reset">{{calcPureSalary(project.salary)}} Euro</a></td>
+      </ng-container> -->
+
+      <!-- Freelancer Column -->
+      <ng-container matColumnDef="FreelancerReward">
+      <th mat-header-cell *matHeaderCellDef>Reward</th>
+      <td mat-cell class="l" *matCellDef="let project">{{calcInvoiceReward(project.salary)}}  -  {{calcUpperInvoiceReward(calcInvoiceReward(project.salary))}} Euro</td>
+      </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row (click)="click(row)" *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+
+
+  <!--###########################################################################################################################-->
+
+  <div class="container-fluid bg1" style="background-color: #DDDDDD;padding-top:120px;padding-bottom:50px">
+
+    <div class="op8x mx-auto container" style="padding-top:50px;padding-bottom:50px;max-width: 600px;">
+  
+      <form #searchForm="ngForm" (ngSubmit)="listJobs()" autocomplete="off">
+  <!--
+        <input type="text" [(ngModel)]="params.title" class="form-control" placeholder="Hľadať v názvoch" name="name">
+      <br>
+  -->
+        <input type="text" [(ngModel)]="params.techstack" class="inp form-control" placeholder="Tu napíš čo Ťa zaujíma" name="techstack">
+      <br>
+   
+  
+      
+        <div class="btn-group" style="width: 100%;" dropdown>
+  
+          <button id="button" dropdownToggle type="button" class="form-control  inp" aria-controls="dropdown-disabled-item">
+            <p *ngIf="params.language !== undefined" class="text-left" style="position: absolute;top:30%">{{params.language}}</p>
+            <p *ngIf="params.language === undefined || params.language ===''" class="text-left" style="position: absolute;top:30%">Vybrať Jazyk</p>
+            <p class="dropdown-toggle" style="position: absolute; top:30%; right: 1rem;"></p>
+          </button>
+  
+          <ul id="dropdown" style="width: 100%;" *dropdownMenu class="dropdown-menu text-white inp"
+              role="menu" aria-labelledby="button-disabled-item">
+  
+            <li role="menuitem">
+              <div class="dropdown-item" (click)="selectLanguage('English')">English</div>
+            </li>
+  
+            <li role="menuitem">
+              <div class="dropdown-item" (click)="selectLanguage('Deutsch')">Deutsch</div>
+            </li>
+          </ul>
+        </div>
+        <br><br>
+  
+        <mat-chip-list #chipList="matChipList" selectable multiple aria-label="Jop type selection">
+          <mat-chip #c="matChip" *ngFor="let type of jobType" (click)="toggleSelection(c,chipList)" [selected]=chipSelect(type.typeChips)>{{type.typeChips}}</mat-chip>
+        </mat-chip-list>
+  
+      </form>
+      
+      <div class="d-flex justify-content-center" style="max-width: 50%; margin-left: 25%; margin-top: 30px; padding-left: 3px; padding-right: 3px;">
+        <button class="btnc-sm btnc-primary mr-2" (click)="listJobs()"><i class="fa fa-search"></i>  Search</button>
+        <button class="btnc-sm btnc-info" (click)="resetFilter(chipList)">Reset</button>
+      </div>
+  
+    </div>
+  
+  </div>
+  
+  
+  <div style="background-color: #EEE;position: static;padding-top: 40px; padding-bottom: 40px; filter: grayscale(0%);">
+      <div class="container " style="position: relative;margin-top:00px;padding-top:80px;padding-bottom: 100px; min-height: 600px; background-color: #FAF0E6;box-shadow: 0px 0px 5px #AAA;">
+  
+      <!-- table here #201E1F-->  
+  
+      <div class="container text-black" *ngFor="let jobs of job" >
+        <div class="row"  style="font-family: Hind Madurai;">
+          
+          <div style="width: 50%;">
+  
+            <p class="text-light p-3" style="font-family: Montserrat;background-color:#1E90FF; font-size:large; border-radius: 10px 0px 0px 0px;">
+              <strong>{{jobs.jobTitle}}</strong><br>
+            </p>
+          </div>
+  
+          <div style="width: 20%;">
+  
+            <p class="text-light p-3" style="font-family: Montserrat;background-color:#1E90FF; font-size:large; border-radius: 0px 0px 0px 0px;">
+              <strong></strong><br>
+            </p>
+          </div>
+  
+  
+  
+          <div style="min-width: 30%;">
+            
+            <p class="text-light p-3 d-flex justify-content-end" style="font-family: Montserrat;background-color:orange; font-size:large; border-radius: 0px 10px 0px 0px;">
+              <strong>{{jobs.jobType}}</strong><br>
+            </p>
+          </div>
+  
+          <div class="p-3" style="width: 100%;border-radius: 0px 00px 10px 10px;">
+            Jazyk : {{jobs.language}}<br>
+            Krajina:{{jobs.state}}<br>
+            Typ projektu:<strong>{{jobs.jobType}}</strong><br>
+            {{calcInvoiceReward(jobs.salary)}} - {{calcUpperInvoiceReward(calcInvoiceReward(jobs.salary))}}
+          </div>
+        </div>
+  
+  
+        <hr>
+  
+      </div>
+      
+    </div>
+  </div>
+  <app-footer></app-footer>
+

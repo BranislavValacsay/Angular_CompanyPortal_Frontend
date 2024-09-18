@@ -1,0 +1,53 @@
+<div class="container-fluid masthead fva">
+</div>
+
+  
+<div class="bg1 invert fva">
+    <div class="op4 invert" style="padding-top:80px;padding-bottom: 100px; min-height: 600px;">
+
+        <!-- table here -->  
+        <table mat-table [dataSource]="visitors" class="container mx-auto mat-elevation-z8">
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+            <!-- ID Column -->
+            <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+            <td mat-cell *matCellDef="let visitors">{{visitors.id}}</td>
+            </ng-container>
+
+            <!-- ID jobOfferId -->
+            <ng-container matColumnDef="jobOfferId">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Job offer id</th>
+            <td mat-cell *matCellDef="let visitors">{{visitors.jobOfferId}}</td>
+            </ng-container>
+
+            <!-- ID visitorIP -->
+            <ng-container matColumnDef="visitorIp">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Visitor IP</th>
+            <td mat-cell *matCellDef="let visitors">{{visitors.visitorIp}}</td>
+            </ng-container>
+
+            <!-- ID jobOfferId -->
+            <ng-container matColumnDef="jobUrl">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>jobUrl</th>
+            <td mat-cell *matCellDef="let visitors">{{visitors.jobUrl}}</td>
+            </ng-container>
+
+            <!-- ID jobOfferId -->
+            <ng-container matColumnDef="visitDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>visitDate</th>
+            <td mat-cell *matCellDef="let visitors">{{visitors.visitDate}}</td>
+            </ng-container>
+
+            <!-- ID jobOfferId -->
+            <ng-container matColumnDef="visitTime">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>visitTime</th>
+            <td mat-cell *matCellDef="let visitors">{{visitors.visitTime}}</td>
+            </ng-container>
+
+        </table>
+    </div>
+</div>
+<app-footer></app-footer>

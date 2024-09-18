@@ -1,0 +1,147 @@
+<ngx-spinner
+bdColor = "#4f4f4f"
+size = "medium"
+color = "#FFF"
+type = "square-jelly-box"
+[fullScreen] = "true">
+<p style="color: white" > Loading... </p>
+</ngx-spinner>
+
+<div class="bg1">
+
+  <div class="mx-auto container-fluid" style="padding-top:150px; padding-bottom:50px;">
+
+    <form class="container" #searchForm="ngForm" (ngSubmit)="listJobs()" autocomplete="off">
+
+      <label class="control-label oswald text-light" for="name">
+
+      </label>
+
+      <input
+      type="text"
+      [(ngModel)]="params.title"
+      class="inpContact form-control mb-4"
+      placeholder="Hľadať v názve"
+      name="name"
+      id="name"
+      (focusout)="checkIfNameIsEmpty(params.title)"
+      >
+
+      <label class="control-label oswald text-light" for="skills">
+
+      </label>
+
+      <input
+      type="text"
+      [(ngModel)]="params.techstack"
+      [typeahead]="jobTechStack"
+      typeaheadOptionField="skillChips"
+      placeholder="Hľadať podľa skillu"
+      class="inpContact form-control mb-4"
+      name="techstack"
+      [isAnimated]="true"
+      [typeaheadMinLength]="1"
+      (typeaheadOnSelect)="listJobs()"
+      >
+
+      <label class="control-label oswald text-light" for="projectType">
+
+      </label>
+      <div class="btn-group mb-4 mt-5" id="projectType" style="width: 100%;" dropdown>
+
+        <button id="button" dropdownToggle type="button" class="form-control inpContact" aria-controls="dropdown-disabled-item">
+          <p *ngIf="params.language !== undefined" class="text-left" style="position: absolute;top:30%">{{params.language}}</p>
+          <p *ngIf="params.language === undefined || params.language ===''" class="text-left" style="position: absolute;top:30%">Vybrať Jazyk</p>
+          <p class="dropdown-toggle" style="position: absolute; top:30%; right: 1rem;"></p>
+        </button>
+
+        <ul id="dropdown" style="width: 100%;" *dropdownMenu class="dropdown-menu text-white inp"
+            role="menu" aria-labelledby="button-disabled-item">
+
+          <li role="menuitem">
+            <div class="dropdown-item text-dark" (click)="selectLanguage('English')">English</div>
+          </li>
+
+          <li role="menuitem">
+            <div class="dropdown-item text-dark" (click)="selectLanguage('Deutsch')">Deutsch</div>
+          </li>
+        </ul>
+      </div>
+      <div class="mt-5">
+        <label class="container-fluid control-label oswald text-light inpContact" for="projectLanguage">
+          Filtrovať podľa typu
+        </label>
+        <mat-chip-list #chipList="matChipList" selectable multiple aria-label="Jop type selection">
+          <mat-chip
+            color="warn"
+            #c="matChip"
+            id="projectLanguage"
+            *ngFor="let type of jobType"
+            (click)="toggleSelection(c,chipList)"
+            [selected]=chipSelect(type.typeChips)
+            >{{type.typeChips}}
+          </mat-chip>
+        </mat-chip-list>
+      </div>
+    </form>
+    <div class="container">
+      <div class="d-flex justify-content-center" style="max-width: 50%; margin-left: 25%; margin-top: 30px; padding-left: 3px; padding-right: 3px;">
+
+        <button class="btnc-sm mr-3 bgblue oswald" (click)="listJobs()"><i class="fa fa-search"></i>  Hľadať</button>
+        <button class="btnc-sm bgblue oswald" (click)="resetFilter(chipList)">Vymazať formulár</button>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+<div *ngIf="job"  class="mt-5x mx-auto" style="max-width:1320px;padding-top:60px;">
+
+  <!-- table here #201E1F  -->
+
+  <div class="text-black jobtab text-dark m-5x" *ngFor="let jobs of job" (click)="click(jobs)">
+
+
+      <div class="d-flex text-light justify-content-between bgblue">
+
+        <div class="p-3 jobTitle">{{jobs.jobTitle}}
+        </div>
+
+        <div class="p-3 jobTitle">od {{calcInvoiceReward(jobs.salary)}} € / mesiac
+        </div>
+
+      </div>
+
+      <div class="container">
+        <div class="row d-flex justify-content-around jobbar">
+          <div class="p-3" ><img src="/assets/icons/position_type.png" class="card-img-top img" alt="..." style="width:16px; height: 16px;">
+            {{jobs.jobType}}
+          </div>
+          <div *ngIf="jobs.primarySkill !== null" class="p-3"><img src="/assets/icons/skill1.png" class="card-img-top img" alt="..." style="width:16px; height: 16px;">
+            {{jobs.primarySkill}}
+          </div>
+          <div *ngIf="jobs.secondarySkill !== null"class="p-3"><i class="fa fa-cubes"></i>
+            {{jobs.secondarySkill}}
+          </div>
+          <div class="p-3"><img src="/assets/icons/languages.png" class="card-img-top img" alt="..." style="width:16px; height: 16px;">
+            {{jobs.language}}
+          </div>
+          <div class="p-3"><i class="fa fa-check"></i>
+            Freelancing
+          </div>
+          <div class="p-3"><i class="fa fa-check"></i>
+            Remote
+          </div>
+        </div>
+      </div>
+
+      <div class="jobtasks ml-4 mr-4 mb-5">
+{{jobs.tasks}}
+      </div>
+
+  </div>
+
+</div>

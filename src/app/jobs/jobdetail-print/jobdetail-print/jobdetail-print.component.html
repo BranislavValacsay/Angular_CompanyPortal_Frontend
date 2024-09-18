@@ -1,0 +1,30 @@
+<div class="fva" style="position: relative; margin-top:70px;">
+    <div class="">       
+    <div class="container" style="background:#e6e6e6;">
+
+        <div *ngIf="job" class="jobdetail container-fluid" style="position:relative; padding-top: 50px; padding-bottom: 70px;white-space: pre-line;">
+            <p class="xxl text-center text-dark">{{job.jobTitle}}</p>
+            <br><p class="xl text-dark">Language:</p><p>{{job.language}}</p>
+            <br><p class="xl text-dark">City:</p><p>{{job.city}}</p>
+            <br><p class="xl text-dark">State:</p><p>{{job.state}}</p>
+            <hr>
+            <strong>Project description:</strong><br><br>{{job.jobDescription}}
+            <hr><strong>Tech stack:</strong><br><br>{{job.techStack}}
+            <hr><strong>Your profile:</strong><br><br>{{job.yourProfile}}
+            <hr><strong>Tasks:</strong><br><br>{{job.tasks}}
+            <hr><strong>You can expect</strong><br><br><p class="text-left">{{job.youCanExpect}}</p>
+            <hr><strong>Further information:</strong><br><br><p class="text-left">{{job.furtherInformation}}</p>
+            <hr><strong>Start Date:</strong><p class="text-center">{{job.startDate}}</p>
+            <hr><strong>Gross Salary starts at:</strong><h1><p class="text-center">€ {{job.salary}} - {{upperSalary}} monthly</p></h1>
+            <hr><strong>Freelancer reward starts at:</strong><h1><p class="text-center">€ {{invoice}} - {{upperInvoice}} monthly</p></h1>
+
+            <hr>
+            <p class="text-left mt-3">If you are interested in working in a highly motivated team, learning fast and adapting quickly, we are looking forward to receiving your application!</p>
+            
+
+            <hr>
+
+        </div>
+    </div>
+</div>
+</div>

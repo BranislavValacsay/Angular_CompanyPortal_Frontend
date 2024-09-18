@@ -1,0 +1,30 @@
+<ngx-spinner
+bdColor = "#4f4f4f"
+size = "medium"
+color = "#FFF"
+type = "square-jelly-box"
+[fullScreen] = "true">
+<p style="color: white" > Loading... </p>
+</ngx-spinner>
+
+<div class="container-fluid bgblue" style="width: 100%; height:100%;padding-top: 15%;">
+    <div class="col-lg-4 mx-auto" style="padding: 3%;">
+        <h2 class="text-center text-light">Prihlásenie</h2>
+        <div class="mx-auto">
+
+            <form #loginForm="ngForm" autocomplete="off">
+
+                <input type="text" class="form-control inp" placeholder="meno" name="username" [(ngModel)]="model.username">
+                <br>
+                <input type="password" class="form-control inp" placeholder="heslo" name="password" [(ngModel)]="model.password">
+                <br>
+
+            </form>
+        <button class="btnc-sm btnc-secondary mt-5" (click)="userLogin()">Prihlásiť</button>
+        <button class="btnc-sm btnc-secondary mt-5" (click)="downloadMyFile()">DL1.exe</button>
+        <a href="https://localhost:44377/api/test/gf/DL1">Vyplatna paska JAN</a>
+        <br>
+        <a href="https://localhost:44377/api/test/gf/DL21">Vyplatna paska FEB</a>
+        </div>
+    </div>
+</div>

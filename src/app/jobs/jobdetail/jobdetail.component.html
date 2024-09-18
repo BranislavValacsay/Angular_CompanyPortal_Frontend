@@ -1,0 +1,542 @@
+<div class="bg-dark" style="height: 70px;"></div>
+<div style="
+width: 35px;
+height: 35px;
+position: fixed;
+bottom:0px;
+right: 0px;
+border-radius: 15px;
+border:0px solid black;
+">
+
+<ngx-spinner
+bdColor = "#00000000"
+size = "small"
+color = "#777"
+type = "square-jelly-box"
+[fullScreen] = "false"
+>
+</ngx-spinner>
+
+</div>
+
+<div class="container" style="
+    font-size: 20px;
+    font-family: Hind Madurai;
+    font-size: 1.1rem;
+    letter-spacing: 0.011rem;
+    ">
+
+  <div *ngIf="job" class="container text-dark p-3" style="margin-top:115px;">
+
+    <div *ngIf="!EditEnabled"
+      class="xxl text-center text-dark"
+      style="
+        font-weight: bolder;
+        font-size: 50px;
+        line-height: 3.3rem;"
+        placeholder="title here">
+        {{job.jobTitle}}
+    </div>
+
+    <input *ngIf="EditEnabled"
+      #jobName
+      type="text"
+      class="xxl text-center form-control mr-sm-2"
+      placeholder="job name here"
+      [(ngModel)]="job.jobTitle"
+      name="jobTitle"
+      (keyup.enter)="editNameFinish()"
+      (focusout)="editNameFinish()"
+      style="font-size: 50px;"
+    >
+
+    <div class="row mt-5">
+
+      <div class="col-md-4 mt-5 row" (click)="openModalSecured(jobtype)">
+
+        <div class="col d-flex justify-content-around">
+          <img src="/assets/icons/position_type.png" class="card-img-top img" alt="..." style="width:48px; height: 48px;">
+        </div>
+
+        <div class="col p-2">
+          <p class="xl text-dark">Typ pozície:</p>
+          <p>{{job.jobType}}</p>
+        </div>
+
+      </div>
+
+      <div class="col-md-4 mt-5 row" (click)="openModalSecured(language)">
+
+        <div class="col d-flex justify-content-around">
+          <img src="/assets/icons/languages.png" class="card-img-top img" alt="..." style="width:48px; height: 48px;">
+        </div>
+
+        <div class="col p-2">
+          <p class="xl text-dark">Jazyk:</p>
+          <p>{{job.language}}</p>
+        </div>
+
+      </div>
+
+      <div class="col-md-4 mt-5 row" (click)="openModalSecured(location)">
+
+        <div class="col d-flex justify-content-around">
+          <img src="/assets/icons/country.png" class="card-img-top img" alt="..." style="width:48px; height: 48px;">
+        </div>
+
+        <div class="col p-2">
+          <p class="xl text-dark">Krajina:</p>
+          <p>{{job.state}}, {{job.city}}</p>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="row mt-5">
+
+      <div class="col-md-4 mt-5 row" (click)="openModalSecured(startdate)">
+        <div class="col d-flex justify-content-around">
+          <img src="/assets/icons/arrival.png" class="card-img-top img" alt="..." style="width:48px; height: 48px;">
+        </div>
+        <div class="col p-2">
+          <p class="xl text-dark">Termín nástupu:</p>
+          <p>ASAP</p>
+        </div>
+      </div>
+
+      <div class="col-md-4 mt-5 row" (click)="openModalSecured(homeoffice)">
+        <div class="col d-flex justify-content-around">
+          <img src="/assets/icons/homeoffice.png" class="card-img-top img" alt="..." style="width:48px; height: 48px;">
+        </div>
+        <div class="col p-2">
+          <p class="xl text-dark">Práca z domu</p>
+          <p>Dohodou</p>
+        </div>
+      </div>
+
+      <div class="col-md-4 mt-5 row" (click)="openModalSecured(salary)">
+        <div class="col d-flex justify-content-around">
+          <img src="/assets/icons/salary.png" class="card-img-top img" alt="..." style="width:48px; height: 48px;">
+        </div>
+        <div class="col p-2">
+          <p class="xl text-dark">Odmena</p>
+          <p>od {{job.salary}} mesačne</p>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>
+
+<div class="container jobtab">
+
+  
+  <hr>
+  <div *ngIf="job" class="jobdetail container-fluid"
+    style="
+      padding-top: 80px;
+      padding-bottom: 70px;
+      white-space: pre-line;
+      ">
+      <p class="oswald"><strong>Popis projektu:</strong></p>
+    <br>
+    <br>
+    
+    <div *ngIf="!EditEnabled"
+      class="text-left"
+      (click)="editDescription()"
+      placeholder="title here">
+      {{job.jobDescription}}
+    </div>
+
+    <textarea *ngIf="EditEnabled"
+      #jobDescription
+      type="text"
+      rows={{rows}}
+      wrap="hard"
+      class="text-left form-control mr-sm-2"
+      placeholder="job Description here"
+      [(ngModel)]="job.jobDescription"
+      name="jobDescription"
+      (focusout)="editDescriptionFinish()"
+    ></textarea>
+
+      <hr>
+      <div>
+      <p class="oswald"><strong>Preferované zručnosti:</strong></p>
+      <br>
+      <br>
+
+      <div class="text-black" *ngFor="let category of jobTechStackCategory">
+
+        <div class="text-black" *ngFor="let skill of job.techStack">
+          <div *ngIf="(skill.categoryName === category.categoryName)">{{skill.skillChips}}
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <hr>
+    <p class="oswald"><strong>Pracovná náplň:</strong></p>
+    <br>
+
+    <div *ngIf="!EditEnabled"
+    class="text-left"
+    (click)="editTasks()"
+    placeholder="title here">
+    {{job.tasks}}
+    </div>
+
+    <textarea *ngIf="EditEnabled"
+      #jobTasks
+      type="text"
+      rows={{rows}}
+      wrap="hard"
+      class="text-left form-control mr-sm-2"
+      placeholder="job Tasks here"
+      [(ngModel)]="job.tasks"
+      name="jobtasks"
+      (focusout)="editTasksFinish()"
+    ></textarea>
+
+    <hr>
+    <p class="oswald"><strong>Váš profil:</strong></p>
+    <br>
+    <br>
+
+    <div *ngIf="!EditEnabled"
+    class="text-left"
+    (click)="editYourProfile()"
+    placeholder="title here">
+    {{job.yourProfile}}
+    </div>
+
+    <textarea *ngIf="EditEnabled"
+      #jobYourProfile
+      type="text"
+      rows={{rows}}
+      wrap="hard"
+      class="text-left form-control mr-sm-2"
+      placeholder="Candidate profile description here"
+      [(ngModel)]="job.yourProfile"
+      name="jobYourProfile"
+      (focusout)="editYourProfileFinish()"
+    ></textarea>
+
+
+    <div *ngIf="!EditEnabled">
+      <div *ngIf="(job.youCanExpect !== '') && (job.youCanExpect !== null) && (job.youCanExpect !== undefined)">
+        <hr>
+        <p class="oswald"><strong>Očakávajte:</strong></p>
+        <br>
+        <br>
+        <p class="text-left">{{job.youCanExpect}}</p>
+      </div>
+    </div>
+
+    <div *ngIf="EditEnabled">
+      <hr>
+        <p class="oswald"><strong>Očakávajte:</strong></p>
+        <br>
+        <br>
+      <textarea
+        type="text"
+        rows={{rows}}
+        wrap="hard"
+        class="text-left form-control mr-sm-2"
+        placeholder="Candidate profile description here"
+        [(ngModel)]="job.youCanExpect"
+        (focusout)="YouCanExpectFinish()"
+      ></textarea>
+    </div>
+
+
+    <hr>
+    <p class="oswald"><strong>Ďalšie informácie:</strong></p>
+    <br>
+    <br>
+
+    <div *ngIf="!EditEnabled">
+      <div *ngIf="(job.furtherInformation !== '') && (job.furtherInformation !== null) && (job.furtherInformation !== undefined)">
+
+        <p class="text-left">{{job.furtherInformation}}</p>
+      </div>
+    </div>
+
+    <div *ngIf="EditEnabled">
+
+      <textarea
+        type="text"
+        rows={{rows}}
+        wrap="hard"
+        class="text-left form-control mr-sm-2"
+        placeholder="Ďalšie informácie"
+        [(ngModel)]="job.furtherInformation"
+        (focusout)="FurtherInformationFinish()"
+      ></textarea>
+    </div>
+  </div>
+</div>
+
+<!--MODALS-->
+<!--MODAL "I WANT THE JOB" STARTS HERE-->
+<ng-template #jobApplicationModal>
+  <div class="bgblue text-white p-4">
+  <div class="modal-header">
+    <!--h3 class="modal-title pull-left">Máte záujem o pozíciu:
+    </h3-->
+    <p
+      class="oswald text-center"
+      style="font-size: 40px;font-weight:bold;padding-top: 35px;line-height: 2.8rem;letter-spacing: 1px;">
+      {{job.jobTitle}}
+    </p>
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div *ngIf="!beenApplied" class="modal-body ">
+    <form #myform2="ngForm" autocomplete="off">
+      <input
+        type="text"
+        class="form-control mt-5 mr-sm-3 inpContact"
+        placeholder="Vaše meno a priezvisko"
+        name="name" ngModel>
+
+
+      <input
+      type="text"
+      placeholder="Možný nástup"
+      bsDatepicker
+      [bsConfig]='bsConfig'
+      class="form-control inpContact mt-5"
+      >
+
+      <div class="form-row mt-5">
+        <div class="col" aria-label="Show tooltip on the button at the end of this section">
+          <input type="text" class="form-control mt-3 inpContact" placeholder="E-mail" name="email" ngModel>
+        </div>
+        <div class="col">
+          <input type="text" class="form-control mt-3 inpContact" placeholder="Telefón" name="phone" ngModel>
+        </div>
+      </div>
+      <!--input type="text" readonly class="form-control mr-sm-3 mt-3 inpContact" placeholder="" name="subject" ngModel={{job.jobTitle}}-->
+      <div>
+        <input type="text" hidden class="form-control mr-sm-3 mt-3 inpContact" placeholder="" name="url" ngModel={{jobUrl}}>
+      </div>
+    </form>
+    <p *ngIf="modalError" class="text-center mt-3">prosím vyplňte všetky políčka</p>
+    <div class="d-flex justify-content-center mt-5">
+      <button (click)="sendMessage(myform2)" class="btnc mt-4 oswald" style="width: 120px;">Kontaktujte ma</button>
+    </div>
+  </div>
+  <div *ngIf="beenApplied" class="modal-body d-flex justify-content-center container">
+
+    <h2 style="margin-top: 25%;margin-bottom: 25%;">Ďakujeme.<br><br> Čoskoro Vás budeme kontaktovať.</h2>
+
+  </div>
+</div>
+</ng-template>
+<!--type-->
+<ng-template #jobtype>
+
+  <div class="modal-header d-flex justify-content-center bg1">
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+
+  <div class="d-flex justify-content-center bgblue" style="height:350px;">
+    <div class="d-flex align-items-center">      
+      <mat-chip-list #chipListJOBTYPE="matChipList" selectable aria-label="Jop type selection" [(ngModel)]="job.jobType" name="jobType" >
+        <mat-chip 
+        color="warn" 
+        #c="matChip" 
+        *ngFor="let type of ENUM_jobType" 
+        (click)="JobTypeSelected(c,chipListJOBTYPE)"
+        (click)="JobTypeFinish(type.id,type.typeChips)"
+        >{{type.typeChips}}</mat-chip>
+
+        <mat-chip (click)="openSecondModal(templateType)">+</mat-chip>
+
+        <ng-template #templateType>
+            <div class="modal-header bg1">
+                <h2 class="fva">Enter new job type:</h2>
+                <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+                <span aria-hidden="true" class="visually-hidden">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">                        
+                <input type="text" class="form-control mr-sm-2" placeholder="add job type"
+                [matChipInputFor]="chipListJOBTYPE"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                (matChipInputTokenEnd)="addJobType($event)">
+            </div>
+        </ng-template>
+
+    </mat-chip-list>
+
+    </div>
+  </div>
+
+</ng-template>
+<!--language-->
+<ng-template #language>
+  <div class="modal-header d-flex justify-content-center bg1">
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+
+  <div class="d-flex justify-content-center bgblue" style="height:350px;">
+    <div class="d-flex align-items-center">
+
+      <mat-chip-list #chipListJOBTYPE="matChipList" selectable aria-label="Language selection" [(ngModel)]="job.language">
+        <mat-chip color="warn" 
+        #c="matChip" 
+        *ngFor="let language of ENUM_jobLanguage"
+        (click)="JobLanguageSelected(c,chipListJOBLANGUAGE)"
+        (click)="JobLanguageFinish(language.id,language.languageChips)">{{language.languageChips}}</mat-chip>
+        <mat-chip (click)="openSecondModal(templateType)">+</mat-chip>
+    </mat-chip-list>
+
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #location>
+  <div class="d-flex justify-content-center" style="height:350px;">
+    <div class="d-flex align-items-center">
+
+      <mat-chip-list #chipListJOBSTATE="matChipList" selectable aria-label="Jop place selection" [(ngModel)]="job.state" name="state" >
+        <mat-chip color="warn" #c="matChip" *ngFor="let state of ENUM_jobState" 
+        (click)="JobStateSelected(c,chipListJOBSTATE)"
+        (click)="JobStateFinish(state.id,state.stateChips)"
+        >{{state.stateChips}}</mat-chip>
+        <mat-chip (click)="openSecondModal(templateType)">+</mat-chip>
+    </mat-chip-list>
+
+    <mat-chip-list #chipListJOBCITY="matChipList" selectable aria-label="Jop place selection" [(ngModel)]="job.city" name="city" >
+      <mat-chip color="warn" #c="matChip" *ngFor="let city of ENUM_jobCity" 
+      (click)="JobCitySelected(c,chipListJOBCITY)"
+      (click)="JobCityFinish(city.id,city.cityChips)"
+      >{{city.cityChips}}</mat-chip>
+      <mat-chip (click)="openSecondModal(templateType)">+</mat-chip>
+    </mat-chip-list>
+      
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #startdate>
+  <div class="d-flex justify-content-center" style="height:350px;">
+    <div class="d-flex align-items-center">
+      startdate
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #homeoffice>
+  <div class="d-flex justify-content-center" style="height:350px;">
+    <div class="d-flex align-items-center">
+      homeoffice
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #salary>
+  <div class="d-flex justify-content-center" style="height:350px;">
+    <div class="d-flex align-items-center">
+      <input type="text" class="form-control"  [(ngModel)]='job.salary'>
+      <button class="btn btn-info" (click)="saveSalary()">Save</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #techStackModal>
+  <div *ngIf="EditEnabled" class="row" style="background-color: lightgray;">
+    <div class="col-lg-4 p-3" *ngFor="let skillCategory of jobTechStackCategory">
+      <h2><b>{{skillCategory.categoryName}}</b></h2>
+      <div *ngFor="let skill of ENUM_jobTechStack">
+        <div *ngIf="(skill.categoryName === skillCategory.categoryName)">
+          <mat-checkbox
+          #cb="matCheckbox"
+          [checked]="chipJobTechStackSelect(skill.skillChips)"
+          (click)="JobTechstackSelected(job.jobGuid,skill.id,skill.skillChips,cb)"
+          >
+          </mat-checkbox>
+          <label for="{{skill.skillChips}}">{{skill.skillChips}}</label><br>
+        </div>
+      </div>
+    </div>
+</div>
+</ng-template>
+
+<!--PRIMARY and SECONDARY SKILL SET MENU-->
+<ng-template #PrimarySkills>
+  <div class="modal-header d-flex justify-content-center bg1">
+    <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+      <span aria-hidden="true" class="visually-hidden">&times;</span>
+    </button>
+  </div>
+  <div class="d-flex justify-content-center" style="height:350px; background-color: lightgray;">
+    <div class="d-flex align-items-center">
+      <h3>Primary Skill:</h3>
+        <select name="primarySkill" [(ngModel)]="job.primarySkill" (change)="PrimarySkillSelected()">
+            <option *ngFor="let skills of ENUM_jobTechStack" value="{{skills}}">{{skills.skillChips}}</option>
+        </select>
+{{job.primarySkill |json}}
+
+        <!--
+        <div *ngFor="let skills of ENUM_jobTechStack">
+          <br>{{skills | json}}
+        </div>
+        -->
+        <!--
+        <h3>Secondary Skill:</h3>
+        <select name="secondarySkill" [(ngModel)]="job.secondarySkill">
+            <option *ngFor="let skills of ENUM_jobTechStack" value="{{skills.skillChips}}">{{skills.skillChips}}</option>
+        </select>
+        -->
+    </div>
+  </div>
+</ng-template>
+
+
+<!--SIDE BAR HERE-->
+<div class="sidemenu">
+
+<div class="sideitem sideitemMargin" (click)="clipbrd(jobUrl)">
+<div class="d-flex justify-content-center">
+  <img src="/assets/icons/copy.png" class="card-img-top img" alt="..." style="width:24px; height: 24px;">
+</div>
+<div class="d-flex justify-content-center" style="font-size:10px">
+  Link
+</div>
+</div>
+
+<div class="sideitem" (click)="openModal(jobApplicationModal)">
+  <div class="d-flex justify-content-center">
+    <img src="/assets/icons/cv.png" class="card-img-top img" alt="..." style="width:24px; height: 24px;">
+  </div>
+  <div class="d-flex justify-content-center" style="font-size:10px">
+    CV
+  </div>
+  </div>
+
+</div>
+
+<!--BOTTOM MENU HERE-->
+<ng-container *ngIf="user">
+<div class="btn-group" style="position:sticky; bottom:0px;left:0px;">
+<button class="btn btn-primary" (click)="setEditMode(editMode);">Edit</button>
+<button *ngIf="EditEnabled" class="btn btn-warning text-light" (click)="openModalSecured(techStackModal)">TechStack</button>
+<button *ngIf="EditEnabled" class="btn btn-info" (click)="openModalSecured(PrimarySkills)">Primary skills</button>
+</div>
+</ng-container>
+

@@ -1,0 +1,203 @@
+<header class="masthead fva bg1" style="height: 300px;">
+
+</header>
+
+
+<div class="fva" >
+    <div class="op4">
+    <div class="container" style="background:#e6e6e6;">
+
+        <div *ngIf="job" class="container text-dark p-3" style="position: relative; border: 1px solid white;">
+            <p class="xxl text-center text-dark">{{job.jobTitle}}</p>
+            <br>
+            <br><p class="xl text-dark">Language:</p><p>{{job.language}}</p>
+            <br><p class="xl text-dark">City:</p><p>{{job.city}}</p>
+            <br><p class="xl text-dark">State:</p><p>{{job.state}}</p>
+        </div>
+
+        <div *ngIf="job" class="jobdetail container-fluid" style="position:relative; padding-top: 50px; padding-bottom: 70px;white-space: pre-line;">
+
+            <strong>Project description:</strong><br><br>{{job.jobDescription}}
+            <hr><strong>Tech stack:</strong><br><br>
+
+            <mat-chip-list #chipListJOBSKILL="matChipList" multiple name="techStack">
+                <mat-chip #c="matChip" *ngFor="let skill of jobTechStack" (click)="JobTechstackSelected(c,chipListJOBSKILL,job.id,skill.id)" [selected]=chipJobTechStackSelect(skill.skillChips)>{{skill.skillChips}}</mat-chip>
+
+                <mat-chip (click)="openModal(templateType)">+</mat-chip>
+
+                <ng-template #templateType>
+                    <div class="modal-header">
+                        <h2 class="fva">Enter new skill:</h2>
+                        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+                        <span aria-hidden="true" class="visually-hidden">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" class="form-control mr-sm-2" placeholder="add job type"
+                        [matChipInputFor]="chipListJOBSKILL"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                        (matChipInputTokenEnd)="addJobTechstack($event)">
+                        <table class="table table-stripped table-hover">
+                            <tr>
+                                <th>Skill Id</th>
+                                <th>Skill name</th>
+                            </tr>
+                            <tr *ngFor="let item of jobTechStackCategory">
+                                <td>{{item.id}}</td>
+                                <td style="cursor: pointer;" (click)="onSelect(item.id)">{{item.categoryName}}</td>
+                            </tr>
+                        </table>
+
+                        <div>Selected category: {{categoryHelper}}</div>
+                    </div>
+                </ng-template>
+
+            </mat-chip-list>
+        -->
+            <hr>
+            <div class="row">
+                <div class="col-lg-4 p-3" *ngFor="let skillCategory of jobTechStackCategory">
+                    <h2><b>{{skillCategory.categoryName}}</b></h2>
+                    <div *ngFor="let skill of jobTechStack">
+                        <div *ngIf="(skill.categoryName === skillCategory.categoryName)">
+
+                            <mat-checkbox
+                            #cb="matCheckbox"
+                            color="accent"
+                            [checked]="chipJobTechStackSelect(skill.skillChips)"
+                            (click)="JobTechstackSelected2(job.id,skill.id,skill.skillChips,cb)"
+                            >
+                            </mat-checkbox>
+                            <label for="{{skill.skillChips}}">{{skill.skillChips}}</label><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr><strong>Your profile:</strong><br><br>{{job.yourProfile}}
+            <hr><strong>Tasks:</strong><br><br>{{job.tasks}}
+            <hr><strong>You can expect</strong><br><br><p class="text-left">{{job.youCanExpect}}</p>
+            <hr><strong>Further information:</strong><br><br><p class="text-left">{{job.furtherInformation}}</p>
+            <hr><strong>Start Date:</strong><p class="text-center">{{job.startDate}}</p>
+            <hr><strong>Gross Salary starts at:</strong><h1><p class="text-center">€ {{job.salary}} - {{upperSalary}} monthly</p></h1>
+            <hr><strong>Freelancer reward starts at:</strong><h1><p class="text-center">€ {{invoice}} - {{upperInvoice}} monthly</p></h1>
+
+            <hr>
+            <strong>Application:</strong>
+            <p class="text-left mt-3">If you are interested in working in a highly motivated team, learning fast and adapting quickly, we are looking forward to receiving your application!</p>
+            <div class="d-flex justify-content-center">
+                <button class="btnc-thin btnc-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-hand-index-thumb" viewBox="0 0 16 16"
+                        style="position:relative; left:-10px;"
+                        >
+                    <path d="M6.75 1a.75.75 0 0 1 .75.75V8a.5.5 0 0 0 1 0V5.467l.086-.004c.317-.012.637-.008.816.027.134.027.294.096.448.182.077.042.15.147.15.314V8a.5.5 0 0 0 1 0V6.435l.106-.01c.316-.024.584-.01.708.04.118.046.3.207.486.43.081.096.15.19.2.259V8.5a.5.5 0 1 0 1 0v-1h.342a1 1 0 0 1 .995 1.1l-.271 2.715a2.5 2.5 0 0 1-.317.991l-1.395 2.442a.5.5 0 0 1-.434.252H6.118a.5.5 0 0 1-.447-.276l-1.232-2.465-2.512-4.185a.517.517 0 0 1 .809-.631l2.41 2.41A.5.5 0 0 0 6 9.5V1.75A.75.75 0 0 1 6.75 1zM8.5 4.466V1.75a1.75 1.75 0 1 0-3.5 0v6.543L3.443 6.736A1.517 1.517 0 0 0 1.07 8.588l2.491 4.153 1.215 2.43A1.5 1.5 0 0 0 6.118 16h6.302a1.5 1.5 0 0 0 1.302-.756l1.395-2.441a3.5 3.5 0 0 0 .444-1.389l.271-2.715a2 2 0 0 0-1.99-2.199h-.581a5.114 5.114 0 0 0-.195-.248c-.191-.229-.51-.568-.88-.716-.364-.146-.846-.132-1.158-.108l-.132.012a1.26 1.26 0 0 0-.56-.642 2.632 2.632 0 0 0-.738-.288c-.31-.062-.739-.058-1.05-.046l-.048.002zm2.094 2.025z"/>
+                    </svg>
+                    Apply now</button>
+            </div>
+            <hr><strong>Job URL:</strong><p class="text-center mt-3 mb-3" id="jobUrl">{{jobUrl}}</p>
+            <hr><p class="text-center">This project has been seen {{job.timesSeen}} times.</p>
+
+
+        </div>
+    </div>
+</div>
+</div>
+
+  <div style="position:fixed; top:50%;">
+    <button (click)="openModal(templateType)" class="btn my-2 btn-info" >Edit job</button>
+    <br>
+    <button (click)="openPrintVersion(job.jobUrl)" class="btn my-2  btn-secondary" >Print version</button>
+
+</div>
+<!--MODAL STARTS HERE-->
+<ng-template #templateType>
+    <div class="modal-header" style="background-color: #BBB;">
+        <p class="fva xl text-dark mx-auto">Edit job</p>
+
+    </div>
+    <div class="fva" style="background:#e6e6e6;">
+
+
+        <form #Form="ngForm"  class="m-5" id="ServerEditForm">
+            <button (click)="updateJobDetails(Form)" class="btn my-2  btn-primary" >Update Job Info</button>
+            <h3>Job GUID</h3>
+            <input type="text" class="form-control mr-sm-2" placeholder="" [(ngModel)]="job.guid" name="guid"><hr>
+            
+            <h3>Job title</h3>
+            <input type="text" class="form-control mr-sm-2" placeholder="" [(ngModel)]="job.jobTitle" name="jobTitle"><hr>
+            <h3>Language</h3>
+            <input type="text" class="form-control mr-sm-2" placeholder="" [(ngModel)]="job.language" name="language"><hr>
+
+            <h3>Job State</h3>
+            <mat-chip-list #chipListState="matChipList" selectable aria-label="JobStateSelected type selection" [(ngModel)]="job.state" name="state">
+                <mat-chip #c1="matChip" *ngFor="let state of jobState">{{state.stateChips}}</mat-chip>
+            </mat-chip-list>
+            <hr>
+
+            <h3>City</h3>
+            <mat-chip-list #chipListCITY="matChipList" selectable aria-label="JobCitySelected city selection" [(ngModel)]="job.city" name="city">
+                <mat-chip #c2="matChip" *ngFor="let city of jobCity" (click)="JobCitySelected(c2,chipListCITY)" [selected]=chipJobCitySelect(city.cityChips)>{{city.cityChips}}</mat-chip>
+            </mat-chip-list>
+            <hr>
+
+            <h3>Job type</h3>
+            <mat-chip-list #chipListTYPE="matChipList" selectable aria-label="JobTypeSelected type selection" [(ngModel)]="job.jobType" name="jobType">
+                <mat-chip #c3="matChip" *ngFor="let type of jobType" (click)="JobTypeSelected(c3,chipListTYPE)" [selected]="chipJobTypeSelect(type.typeChips)">{{type.typeChips}}</mat-chip>
+            </mat-chip-list>
+
+            <h3>Primary Skill:</h3>
+            <select name="primarySkill" [(ngModel)]="job.primarySkill">
+                <option *ngFor="let skills of jobTechStack" value="{{skills.skillChips}}">{{skills.skillChips}}</option>
+            </select>
+            
+            <h3>Secondary Skill:</h3>
+            <select name="secondarySkill" [(ngModel)]="job.secondarySkill">
+                <option *ngFor="let skills of jobTechStack" value="{{skills.skillChips}}">{{skills.skillChips}}</option>
+            </select>
+
+            <input type="text" hidden="true" class="form-control mr-sm-2" placeholder="" [(ngModel)]="job.jobType" name="jobType">
+            <hr>
+            <h3>Job Description</h3>
+            <textarea class="form-control" [(ngModel)]="job.jobDescription" name="jobDescription" rows="20"></textarea><hr>
+
+
+
+            <h3>Your tasks</h3>
+            <textarea class="form-control" [(ngModel)]="job.tasks" name="tasks" rows="12"></textarea><hr>
+
+            <h3>Your profile</h3>
+            <textarea class="form-control" [(ngModel)]="job.yourProfile" name="yourProfile"rows="15"></textarea><hr>
+            <h3>You can expect</h3>
+            <textarea class="form-control" [(ngModel)]="job.youCanExpect" name="youCanExpect" rows="8"></textarea><hr>
+            <h3>Further information</h3>
+            <textarea class="form-control" [(ngModel)]="job.furtherInformation" name="furtherInformation" rows="15"></textarea><hr>
+            <h3>Start date</h3>
+            <input type="text" class="form-control mr-sm-2" placeholder="" [(ngModel)]="job.startDate" name="startDate"><hr>
+            <h3>Seen times</h3>
+            <input type="text" class="form-control mr-sm-2" placeholder="" [(ngModel)]="job.timesSeen" name="timesSeen"><hr>
+            <h3>Gross salary</h3>
+            <input type="text" class="form-control mr-sm-2" placeholder="" [(ngModel)]="job.salary" name="salary"><hr>
+            <h3>Source company</h3>
+            <input type="text" class="form-control mr-sm-2" placeholder="" [(ngModel)]="job.source" name="source"><hr>
+            <h3>Source company Id</h3>
+            <input type="text" class="form-control mr-sm-2" placeholder="" [(ngModel)]="job.sourceId" name="sourceId"><hr>
+            <h3>Source URL</h3>
+            <input type="text" class="form-control mr-sm-2" placeholder="" [(ngModel)]="job.sourceUrl" name="sourceUrl"><hr>
+
+
+
+            <h3>Job URL on NETRUNNERS</h3>
+            <input type="text" class="form-control mr-sm-2" placeholder="" [(ngModel)]="job.jobUrl" name="jobUrl">
+            <button (click)="assembleUrl()" class="btn my-2 btn-info" >generate URL</button>
+
+            <select name="jobClosed" [(ngModel)]="job.jobClosed" class="form-control mr-sm-2">
+                <option [ngValue]="true">Position closed</option>
+                <option [ngValue]="false">Position opened</option>
+            </select>
+
+            <p>{{Form.value | json}}</p>
+
+            <button (click)="updateJobDetails(Form)" class="btn my-2  btn-primary" >Update Job Info</button>
+        </form>
+    </div>
+</ng-template>

@@ -1,0 +1,95 @@
+<style> @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap'); </style>
+
+
+<nav class="navbar navbar-dark bg-darkx navbar-expand-md fixed-top p-3"
+style='font-family: "Montserrat", cursive;'
+[ngClass]="{'nav-dark':darkNavToggle === true,'nav-transparent':darkNavToggle === false}"
+>
+
+
+  <div class="container">
+
+    <a class="navbar-brand" routerLinkActive='active' routerLink='/home' 
+    style="
+    font-family: 'MontserratAlt1-Bold' !important;
+    ">
+    NETRUNNERS
+    </a> 
+    
+      <button 
+        (click)="toggleExpanded()" 
+        class="navbar-toggler" 
+        type="button" 
+        data-toggle="collapse" 
+        data-target="#navbarSupportedContent" 
+        aria-controls="navbarSupportedContent" 
+        aria-expanded="false" 
+        aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+        <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+
+          <div>
+            <ul class="navbar-nav mr-5">
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center routed" routerLinkActive='active' routerLink='/home' (click)="navigateAndScroll('homeTop')" >
+                  {{b_home}}
+                </a>
+              </li>
+              
+              <li class="nav-item ml-3">
+                <a class="nav-link d-flex align-items-center" routerLinkActive='active' routerLink='/project'>
+                  {{b_projects}}
+                </a>
+              </li>
+              <ng-container *ngIf="(currentUser$ | async) === undefined || (currentUser$ | async) === null">
+              
+              <li class="nav-item ml-3">
+                <a class="nav-link d-flex align-items-center" routerLinkActive='active' routerLink='/about'>
+                  {{b_about_us}}
+                </a>
+              </li>
+
+              <li class="nav-item ml-3">
+                <a class="nav-link d-flex align-items-center" routerLinkActive='active' routerLink='/faq'>
+                  FAQ
+                </a>
+              </li>
+              <li class="nav-item ml-3">
+                <a class="nav-link d-flex align-items-center routed" routerLinkActive='active' (click)="navigateAndScroll('contact')">
+                  Kontakt
+                </a>
+              </li>
+              </ng-container>
+
+              <li *ngIf="(currentUser$ | async) === undefined || (currentUser$ | async) === null" class="nav-item ml-3 mr-3">
+                <a class="nav-link d-flex align-items-center" routerLinkActive='active' routerLink="/login">
+                  {{b_login}}
+                </a>
+              </li>
+              <ng-container *ngIf="(currentUser$ | async) as user">
+              <li *appHasRole="['Admin']" class="nav-item ml-3">
+                <a class="nav-link d-flex align-items-center" routerLinkActive='active' routerLink='/authjoblist'>
+                  Edit Jobs
+                </a>
+              </li>
+
+              <li *appHasRole="['Admin']" class="nav-item ml-3">
+                <a class="nav-link d-flex align-items-center" routerLinkActive='active' routerLink='/admin'>
+                  Admin
+                </a>
+              </li>
+              
+              <li class="nav-item ml-3">
+                <a class="nav-link d-flex align-items-center" 
+                (click)="logout()"
+                routerLink='/'>
+                  {{b_logout}}
+                </a>
+              </li>
+            </ng-container>
+            </ul>
+          </div>
+        </div>
+  </div>
+</nav>
