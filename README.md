@@ -1,27 +1,110 @@
-# Cloudia
+# Hiring company portal frontend written in Angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.2.
+## About This Project
 
-## Development server
+This repository contains the codebase for our company's comprehensive web platform. It includes a public-facing website, an employee portal, and an administrative backend, designed to streamline our online presence and internal operations.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Built With
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- [Angular](https://angular.io/) - The web framework used
+- [TypeScript](https://www.typescriptlang.org/) - Programming language
+- [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS) - For advanced styling
 
-## Build
+## Features
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Public Section
+- **Landing Page**
+  - Eye-catching hero section
+  - About Us information
+  - Overview of key services/products
 
-## Running unit tests
+- **Job Listings**
+  - List of current job openings
+  - Advanced search and filtering (position, location, department, etc.)
+  - Detailed job descriptions
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- **Contact Form**
+  - User-friendly inquiry submission
+  - Input validation
+  - Spam protection
 
-## Running end-to-end tests
+### Employee Portal
+- **Secure Login**
+  - Authentication system
+  - Password recovery option
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- **Internal Management**
+  - Task and project management
+  - Employee directory
+  - Internal communication tools
 
-## Further help
+### Admin Dashboard
+- **Job Posting Management**
+  - Create new job listings
+  - Edit existing listings
+  - Change listing status (new, active, inactive)
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+- **User Management**
+  - Create and manage user accounts
+  - Role and permission assignment
+
+- **Analytics and Reporting**
+  - Website traffic tracking
+  - Job listing interest statistics
+  - Performance indicators
+
+## Technical Specifications
+
+- **Authorization & Authentication**
+  - Secure login implementation
+  - Role-based access control
+
+- **API and Backend**
+  - RESTful API for frontend-backend communication
+  - DTO (Data Transfer Objects) implementation
+  - Request interceptors for logging and processing
+
+- **Search Functionality**
+  - Advanced search system with multi-criteria filtering
+
+- **Responsive Design**
+  - Optimized for various devices (desktop, tablet, mobile)
+
+- **SEO Optimization**
+  - Implementation of best practices for search engine visibility
+
+- **Performance Optimization**
+  - Caching strategies
+  - Lazy loading for faster page loads
+
+### Installation
+1. Clone the repository
+   ```
+   git clone https://github.com/BranislavValacsay/Angular_Company_Frontend.git
+   ```
+2. Navigate to the project directory
+   ```
+   cd Angular_Company_Frontend
+   ```
+3. Install dependencies
+   ```
+   npm install
+   ```
+4. [Any additional setup steps]
+
+### Running the Application
+- [Instructions on how to run the application locally]
+```
+  ng serve
+```
+
+## Contact
+
+- LinkedIn: [https://www.linkedin.com/in/branislav-valacsay/](https://www.linkedin.com/in/branislav-valacsay/)
+- Email: branislav.valacsay@archdev.tech
+- Website: http://archdev.tech
+
+---
+
+"Blending creativity with technology to create something useful and engaging."
